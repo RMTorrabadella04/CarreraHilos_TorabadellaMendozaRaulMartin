@@ -1,4 +1,5 @@
-# Carrera Visual - ¡La Carrera de Coches Más Emocionante Hecha en Java!
+# Carrera Hilos
+## Hecho por Raúl Martín Torrabadella Mendoza
 
 ¿Alguna vez soñaste con organizar tu propia carrera de coches y vivir la emoción de la velocidad en una pista virtual? ¡Ahora puedes hacerlo con **Carrera en Hilos**! Desarrollado en **Java** usando **Swing**, este proyecto te permite experimentar una simulación vibrante y divertida, donde la velocidad, la estrategia y la suerte se combinan para crear una competencia única.
 
