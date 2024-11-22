@@ -10,11 +10,16 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.util.Random;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -34,7 +39,6 @@ public class CarreraVisual extends javax.swing.JFrame {
     public CarreraVisual(){    
             initComponents();
             setFondoPanel();
-            cambiarEstiloBoton();
             setResizable(false);
     }
     public int[] velocidades;
@@ -114,28 +118,7 @@ public class CarreraVisual extends javax.swing.JFrame {
          
        
     }
-    
-    private void cambiarEstiloBoton() {
-      
-        BotonEmpezar.setFont(new java.awt.Font("Consolas", 3, 18));  
-        BotonEmpezar.setBackground(new Color(100, 76, 72));
-        BotonEmpezar.setForeground(new Color(180, 158, 154));
-        BotonEmpezar.setText("¡EMPEZAR CARRERA!");  // Texto más claro
-        BotonEmpezar.setBorder(BorderFactory.createLineBorder(new Color(100, 76, 72), 3));
-        BotonEmpezar.setFocusPainted(false);
-        BotonEmpezar.setPreferredSize(new Dimension(250, 60));
 
-        // Efecto hover
-        BotonEmpezar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                BotonEmpezar.setBackground(new Color(123, 95, 90));
-                BotonEmpezar.setForeground(new Color(100, 76, 72));
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                BotonEmpezar.setBackground(new Color(100, 76, 72));  
-            }
-        });
-    }
 
     private void setFondoPanel() {
         
@@ -155,9 +138,86 @@ public class CarreraVisual extends javax.swing.JFrame {
         panelInferior.setBackground(new Color(180, 158, 154));
         panelInferior.setBorder(BorderFactory.createLineBorder(Color.black, 1));
         panelInferior.setLayout(new FlowLayout(FlowLayout.LEFT));
+        
+        
+        BotonEmpezar.setFont(new java.awt.Font("Consolas", 3, 18));  
+        BotonEmpezar.setBackground(new Color(100, 76, 72));
+        BotonEmpezar.setForeground(new Color(180, 158, 154));
+        BotonEmpezar.setText("¡EMPEZAR CARRERA!");  // Texto más claro
+        BotonEmpezar.setBorder(BorderFactory.createLineBorder(new Color(100, 76, 72), 3));
+        BotonEmpezar.setFocusPainted(false);
+        BotonEmpezar.setPreferredSize(new Dimension(200, 60));
+
+        // Efecto hover
+        BotonEmpezar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                BotonEmpezar.setBackground(new Color(123, 95, 90));
+                BotonEmpezar.setForeground(new Color(100, 76, 72));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                BotonEmpezar.setBackground(new Color(100, 76, 72));
+                BotonEmpezar.setForeground(new Color(180, 158, 154));
+            }
+        });
+        BotonEmpezar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Aquí deshabilitamos el botón después de presionarlo
+                BotonEmpezar.setEnabled(false); 
+            }
+        });
+        
+        
         panelInferior.add(BotonEmpezar);
-       
-        panelInferior.add(Box.createHorizontalStrut(50));
+        
+        JButton BotonReiniciar = new JButton("REINICIAR"); 
+        
+        BotonReiniciar.setFont(new java.awt.Font("Consolas", 1, 18));
+        BotonReiniciar.setBackground(new Color(100, 76, 72));
+        BotonReiniciar.setForeground(new Color(180, 158, 154));
+        BotonReiniciar.setBorder(BorderFactory.createLineBorder(new Color(100, 76, 72), 3));
+
+        // Establecer el tamaño para que sea circular
+        BotonReiniciar.setPreferredSize(new Dimension(100, 60));
+        BotonReiniciar.setFocusPainted(false);  // Quitar el borde cuando se presiona
+
+        // Efecto hover para el botón "REINICIAR"
+        BotonReiniciar.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
+                BotonReiniciar.setBackground(new Color(123, 95, 90));
+                BotonReiniciar.setForeground(new Color(100, 76, 72));
+            }
+            public void mouseExited(MouseEvent evt) {
+                BotonReiniciar.setBackground(new Color(100, 76, 72));
+                BotonReiniciar.setForeground(new Color(180, 158, 154));
+            }
+        });
+
+        // Acción cuando se presiona el botón "REINICIAR"
+        BotonReiniciar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                BotonEmpezar.setEnabled(true);
+                distanciaEntrada.setText("");
+                
+
+                c1y = 850;
+                c2y = 850;
+                c3y = 850;
+                c4y = 850;
+                repaint();
+
+
+
+                }
+        
+        });
+
+        // Agregar el botón "REINICIAR" (circular) al panel inferior
+        panelInferior.add(Box.createHorizontalStrut(5));  // Espaciado entre los botones
+        panelInferior.add(BotonReiniciar);
+        panelInferior.add(Box.createHorizontalStrut(5));  // Espaciado entre los botones
+        
+      
         
         JLabel distanciaTexto = new JLabel("DISTANCIA:");
         distanciaTexto.setFont(new java.awt.Font("Consolas", 1, 18)); // Establecer fuente
@@ -266,6 +326,7 @@ public class CarreraVisual extends javax.swing.JFrame {
             // Verificamos que la distancia sea mayor que 0
             if (distanciaMeta < 500 || distanciaMeta > 1500) {
                 JOptionPane.showMessageDialog(this, "La distancia debe estar entre 500 y 1500 .", "Error", JOptionPane.ERROR_MESSAGE);
+                BotonEmpezar.setEnabled(true);
                 return;
             }
 
@@ -286,62 +347,79 @@ public class CarreraVisual extends javax.swing.JFrame {
         // Coche 1
         new Thread(() -> {
             int velocidad = velocidades[random.nextInt(velocidades.length)];
+            long tiempoInicial = System.currentTimeMillis();
             while (c1y > (getHeight() - distanciaMaxima)) {  // Asegúrate de que el coche no sobrepase la distancia
                 moverCoche(1, velocidad);
                 repaint();
                 try {
-                    Thread.sleep(50);  // Espera entre movimientos
+                    Thread.sleep(50);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
+            long tienpoFinal = System.currentTimeMillis();
+            double tiempoTranscurrido = (tienpoFinal - tiempoInicial)/1000.0;
+            JOptionPane.showMessageDialog(this, "El coche 1 finalizo en "+ tiempoTranscurrido +" segundos", "Termina", JOptionPane.INFORMATION_MESSAGE);
         }).start();
 
         // Coche 2
         new Thread(() -> {
             int velocidad = velocidades[random.nextInt(velocidades.length)];
+            long tiempoInicial = System.currentTimeMillis();
             while (c2y > (getHeight() - distanciaMaxima)) {
                 moverCoche(2, velocidad);
                 repaint();
                 try {
-                    Thread.sleep(50);  // Espera entre movimientos
+                    Thread.sleep(50);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
+            long tienpoFinal = System.currentTimeMillis();
+            double tiempoTranscurrido = (tienpoFinal - tiempoInicial)/1000.0;
+            JOptionPane.showMessageDialog(this, "El coche 2 finalizo en "+ tiempoTranscurrido +" segundos", "Termina", JOptionPane.INFORMATION_MESSAGE);
         }).start();
 
         // Coche 3
         new Thread(() -> {
             int velocidad = velocidades[random.nextInt(velocidades.length)];
+            long tiempoInicial = System.currentTimeMillis();
             while (c3y > (getHeight() - distanciaMaxima)) {
                 moverCoche(3, velocidad);
                 repaint();
                 try {
-                    Thread.sleep(50);  // Espera entre movimientos
+                    Thread.sleep(50);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
+            long tienpoFinal = System.currentTimeMillis();
+            double tiempoTranscurrido = (tienpoFinal - tiempoInicial)/1000.0;
+            JOptionPane.showMessageDialog(this, "El coche 3 finalizo en "+ tiempoTranscurrido +" segundos", "Termina", JOptionPane.INFORMATION_MESSAGE);
         }).start();
 
         // Coche 4
         new Thread(() -> {
             int velocidad = velocidades[random.nextInt(velocidades.length)];
+            long tiempoInicial = System.currentTimeMillis();
             while (c4y > (getHeight() - distanciaMaxima)) {
                 moverCoche(4, velocidad);
                 repaint();
                 try {
-                    Thread.sleep(50);  // Espera entre movimientos
+                    Thread.sleep(50);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
+            long tienpoFinal = System.currentTimeMillis();
+            double tiempoTranscurrido = (tienpoFinal - tiempoInicial)/1000.0;
+            JOptionPane.showMessageDialog(this, "El coche 4 finalizo en "+ tiempoTranscurrido +" segundos", "Termina", JOptionPane.INFORMATION_MESSAGE);
         }).start();
         
     } catch (NumberFormatException e) {
         // Si ocurre un error en la conversión (por ejemplo, si el usuario ingresa texto no numérico)
-        System.err.println("Por favor, ingresa un número válido para la distancia.");
+        JOptionPane.showMessageDialog(this, "La distancia debe ser numeros y sin decimales .", "Error", JOptionPane.ERROR_MESSAGE);
+        BotonEmpezar.setEnabled(true);
     }
    
 
